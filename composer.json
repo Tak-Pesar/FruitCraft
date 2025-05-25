@@ -1,0 +1,29 @@
+{
+    "name": "takpesar/fruitcraft",
+    "license": "MIT",
+    "description": "A PHP library for complete management of your FruitCraft accounts",
+    "type": "library",
+    "keywords": [
+        "fruit",
+        "craft",
+        "api",
+        "php",
+        "fruitcraft"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tak\\FruitCraft\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tak Pesar",
+            "email": "loser.man.2007@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "php": "^8.2",
+        "ext-curl": "*"
+    }
+}
