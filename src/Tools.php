@@ -42,7 +42,7 @@ abstract class Tools {
 		return $result;
 	}
 	protected function reflection(string $method) : object {
-		$reflection = new ReflectionMethod($method);
+		$reflection = ReflectionMethod::createFromMethodName($method);
 		$attributes = $reflection->getAttributes();
 		array_map(fn(object $attribute) : mixed => $attribute->newinstance()->check($this),$attributes);
 		return $reflection;

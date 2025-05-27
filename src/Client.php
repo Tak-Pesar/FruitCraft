@@ -18,12 +18,12 @@ final class Client extends Tools {
 	public object $player;
 	public object $errors;
 
-	public function __construct(string $passport = null,public string $xorkey = 'ali1343faraz1055antler288based',public string $url = 'https://iran.fruitcraft.ir',array $options = array()){
+	public function __construct(? string $passport = null,public string $xorkey = 'ali1343faraz1055antler288based',public string $url = 'https://iran.fruitcraft.ir',array $options = array()){
 		$this->sender = new Requests($url);
 		if(is_null($passport) === false) $this->passport = $passport;
 		array_map($this->sender->setOption(...),array_keys($options),array_values($options));
 	}
-	public function login(string $restore_key = null,string $game_version = '1.10.10700',string $udid = '4a87f9b929db1587',int $os_type = 2,string $os_version = '11',string $kochava_uid = 'KA1712090878T500V53fac2e74fa74e07933510deaf8f1d96',string $model = 'Redmi Note 8 Pro',string $metrix_uid = 'f97b1d7b-7a66-466c-909b-3a9b6b9bb52a',string $appsflyer_uid = '1712057203523-4308222745853444926',string $device_name = 'unknown',string $store_type = 'myket') : mixed {
+	public function login(? string $restore_key = null,string $game_version = '1.10.10700',string $udid = '4a87f9b929db1587',int $os_type = 2,string $os_version = '11',string $kochava_uid = 'KA1712090878T500V53fac2e74fa74e07933510deaf8f1d96',string $model = 'Redmi Note 8 Pro',string $metrix_uid = 'f97b1d7b-7a66-466c-909b-3a9b6b9bb52a',string $appsflyer_uid = '1712057203523-4308222745853444926',string $device_name = 'unknown',string $store_type = 'myket') : mixed {
 		$parameters = $this->arguments(__METHOD__,func_get_args());
 		$player = $this('player/load',$parameters);
 		$this->player = $player->data;
@@ -158,7 +158,10 @@ final class Client extends Tools {
 		$parameters = $this->arguments(__METHOD__,func_get_args());
 		return $this('cards/cooloff',$parameters);
 	}
-	public function potionize(int $hero_id,int $potion = null) : mixed {
+	public function healall(array $cards) : mixed {
+		return array_map($this->cooloff(...),$cards);
+	}
+	public function potionize(int $hero_id,? int $potion = null) : mixed {
 		$parameters = $this->arguments(__METHOD__,func_get_args());
 		return $this('cards/potionize',$parameters);
 	}
@@ -166,7 +169,7 @@ final class Client extends Tools {
 		$parameters = $this->arguments(__METHOD__,func_get_args());
 		return $this('player/fillpotion',$parameters);
 	}
-	public function setinfo(string $name = null,string $realname = null,string $phone = null,string $address = null,int $gender = null,string $birth_year = null,int $mood_id = null,string $lang = 'en') : mixed {
+	public function setinfo(? string $name = null,? string $realname = null,? string $phone = null,? string $address = null,? int $gender = null,? string $birth_year = null,? int $mood_id = null,string $lang = 'en') : mixed {
 		$parameters = $this->arguments(__METHOD__,func_get_args());
 		return $this('player/setplayerinfo',$parameters);
 	}
@@ -267,7 +270,7 @@ final class Client extends Tools {
 		$this->reflection(__METHOD__);
 		return $this->errors->$code ?? throw new Exception('The error message related to code '.$code.' was not found');
 	}
-	public function getavatar(int $avatar_id,string $dir = null,bool $asurl = false) : string {
+	public function getavatar(int $avatar_id,? string $dir = null,bool $asurl = false) : string {
 		if($avatar_id === 0) $avatar_id += 1;
 		if(is_dir($dir ? $dir : chr(46)) or mkdir($dir,0777,true)):
 			$directory = realpath(strval($dir));
@@ -327,7 +330,7 @@ final class Client extends Tools {
 		endif;
 		return $this->passport;
 	}
-	public function __invoke(string $path,array $request,string $key = null) : mixed {
+	public function __invoke(string $path,array $request,? string $key = null) : mixed {
 		if(is_null($key)) $key = $this->xorkey;
 		if(isset($this->passport) === false) $this->generatepassport(login : boolval($path !== 'player/load'));
 		$body = $this->serialize($request,$key);
