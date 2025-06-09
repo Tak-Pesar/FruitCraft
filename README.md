@@ -44,14 +44,20 @@ file_put_contents($session_path,serialize($client->player));
 # for example ...
 
 $heroes = $client->getheroes();
-$ids = array_column($heroes,'id');
+
+$ids = array_column($heroes,'base_card_id');
 
 foreach($ids as $id){
     try {
         var_dump($client->player_fillpotion(amount : 50));
         var_dump($client->cards_potionize(hero_id : $id));
     } catch(Errors $e){
-        echo 'Error : ' , strval($e) , PHP_EOL;
+         if($e->getCode() === 400){
+            # ERROR_CODE_{$X} : 400 #
+            echo 'Error : ' , $client->geterrormessage($e->getValue()) , PHP_EOL;
+         } else {
+            echo 'Error : ' , strval($e) , PHP_EOL;
+         }
     }
 }
 
