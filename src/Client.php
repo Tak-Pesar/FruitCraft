@@ -259,7 +259,7 @@ final class Client extends Tools {
 		$rand = $this->player->cards[array_rand($this->player->cards)];
 		$keys = array_keys((array) $rand);
 		if(in_array($index,$keys)):
-			uasort($this->player->cards,fn(mixed $a,mixed $b) : int => $order !== 'DESC' ? $b->$index <=> $a->$index : $a->$index <=> $b->$index);
+			uasort($this->player->cards,fn(mixed $a,mixed $b) : int => $order === 'DESC' ? $b->$index <=> $a->$index : $a->$index <=> $b->$index);
 			return $this->getcards(...$filters);
 		else:
 			throw new Exception('There isn\'t '.$index.' key in the cards');
