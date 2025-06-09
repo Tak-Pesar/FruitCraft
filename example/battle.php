@@ -42,7 +42,7 @@ $choice = array_slice($sorted,0,4);
 $heroes = $client->getheroes();
 $hero = array_slice($heroes,0,1);
 
-$cards = array_column(array_merge($choice,$hero), 'id');
+$cards = array_column(array_merge($choice,$hero),'id');
 
 var_dump($cards); # The selected ID cards are
 
