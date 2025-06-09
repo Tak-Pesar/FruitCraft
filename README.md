@@ -5,6 +5,7 @@ Complete management of your FruitCraft accounts
 ```bash
 composer require takpesar/fruitcraft
 ```
+Or you can use the [`Phar`](./fruitcraft.phar)
 
 ## Requirements
 
