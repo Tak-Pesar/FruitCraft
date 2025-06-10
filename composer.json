@@ -8,7 +8,8 @@
         "craft",
         "api",
         "php",
-        "fruitcraft"
+        "fruitcraft",
+        "fruitscript"
     ],
     "autoload": {
         "psr-4": {
